@@ -1,20 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, SafeAreaView } from 'react-native';
+import PostCard from './src/components/PostCard';
+import './global.css';
 
 export default function App() {
+  const dummyData = Array.from({ length: 10 }, (_, i) => i); // 더미 데이터
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView className='flex-1 bg-white'>
+      <FlatList data={dummyData} keyExtractor={(item, index) => index.toString()} renderItem={() => <PostCard />} />
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

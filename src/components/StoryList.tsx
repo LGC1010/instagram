@@ -1,7 +1,17 @@
 import React from 'react';
 import { FlatList, Image, Text, View } from 'react-native';
 
-const StoryList = () => {
+type StoryItem = {
+  id: string;
+  user: string;
+  avatar: string;
+};
+
+type StoryListProps = {
+  data: StoryItem[];
+};
+
+const StoryList = ({ data }: StoryListProps) => {
   const dummyStories = Array.from({ length: 15 }, (_, i) => ({
     id: i.toString(),
     name: `user${i + 1}`,

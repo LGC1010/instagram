@@ -1,8 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, Text, Image, FlatList, Dimensions, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import BottomSheet from '@gorhom/bottom-sheet';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../types/navigation.';
 import { NativeStackNavigationProp } from 'react-native-screens/lib/typescript/native-stack/types';
@@ -111,7 +110,10 @@ export default function ProfileScreen() {
           }
           renderItem={({ item }) => (
             <TouchableOpacity
-              onPress={() => navigation.navigate('PostDetailScreen', { post: item })}
+              onPress={() => {
+                navigation.navigate('PostDetailScreen', { post: item, posts: posts });
+                console.log(item);
+              }}
               style={{ width: itemSize, height: itemSize, padding: 2 }}
             >
               <Image source={{ uri: item.download_url }} style={{ width: '100%', height: '100%' }} />

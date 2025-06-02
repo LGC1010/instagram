@@ -1,15 +1,19 @@
 import { FlatList, Image, Dimensions, View, Text, TouchableOpacity } from 'react-native';
-import { useRoute, useNavigation } from '@react-navigation/native';
+import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
+import { RootStackParamList } from '../types/navigation.';
 
 const screenHeight = Dimensions.get('window').height;
+type PostDetailRouteProp = RouteProp<RootStackParamList, 'PostDetailScreen'>;
 
 export default function PostDetailScreen() {
-  const route = useRoute();
+  const route = useRoute<PostDetailRouteProp>();
   const navigation = useNavigation();
-  const { posts, initialIndex } = route.params;
+  const { post, posts } = route.params;
+
+  const startIndex = posts.findIndex((p) => p.id === post.id);
 
   const renderItem = ({ item }: { item: any }) => (
-    <View style={{ paddingBottom: 16 }}>
+    <View style={{ padding: 8 }}>
       <Image source={{ uri: item.download_url }} style={{ width: '100%', height: 300 }} resizeMode='cover' />
       <View style={{ padding: 16 }}>
         <Text style={{ fontWeight: 'bold' }}>{item.author}</Text>
@@ -31,13 +35,14 @@ export default function PostDetailScreen() {
       <FlatList
         data={posts}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        initialScrollIndex={initialIndex}
+        keyExtractor={(item) => item.id.toString()}
+        initialScrollIndex={startIndex}
         getItemLayout={(data, index) => ({
-          length: 350,
-          offset: 350 * index,
+          length: screenHeight,
+          offset: screenHeight * index,
           index
         })}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );

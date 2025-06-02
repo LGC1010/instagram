@@ -1,7 +1,8 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { FlatList } from 'react-native';
+import { FlatList, Text } from 'react-native';
 import StoryList from '../components/StoryList';
 import PostCard from '../components/PostCard';
+import ScreenLayout from '../components/ScreenLayout';
 
 export default function HomeScreen() {
   const dummyStories = Array.from({ length: 10 }, (_, i) => ({
@@ -15,7 +16,7 @@ export default function HomeScreen() {
   }));
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <ScreenLayout>
       <FlatList
         data={dummyPosts}
         keyExtractor={(item) => item.id}
@@ -23,6 +24,6 @@ export default function HomeScreen() {
         contentContainerStyle={{ paddingBottom: 0 }}
         renderItem={({ item }) => <PostCard />}
       />
-    </SafeAreaView>
+    </ScreenLayout>
   );
 }

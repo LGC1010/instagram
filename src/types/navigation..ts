@@ -1,4 +1,4 @@
 export type RootStackParamList = {
   MainTabs: undefined;
-  PostDetailScreen: { post: any };
+  PostDetailScreen: { post: any; posts: any[] };
 };
